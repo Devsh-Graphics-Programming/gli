@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 cmake_policy(SET CMP0054 NEW)
 
 project(gli)
@@ -111,11 +111,13 @@ install(
 	DESTINATION ${GLI_INSTALL_CONFIGDIR}
 )
 
+set(GLI_GLM_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/external" CACHE PATH "GLM include search directory")
+
 add_library(gli INTERFACE)
 target_include_directories(gli INTERFACE
 	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/external>
+	$<BUILD_INTERFACE:${GLI_GLM_LOCATION}>
 )
 install(TARGETS gli EXPORT gliTargets)
 
